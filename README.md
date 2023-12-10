@@ -53,3 +53,31 @@ Here I'm collecting ideas for fields that may be added in the future:
 
 - Field `ping` or `dur`: The delay measured between sending the request and receiving a response in ms.
 - Field `err` and/or `errno`: A field with information about errors that occurred after the request. Things like timeouts, DNS problems or TLS misconfiguration.
+
+# Tools
+Here are some tools—some written with httpipe in mind, some not—that can
+create, transform, filter and consume httpipe streams.
+
+## jq
+`jq` is a powerful tool that can be used to filter, manipulate and
+pretty print httpipe streams. Although not designed for httpipe, it
+works with httpipe input and can produce httpipe output with the -c
+flag.
+
+```console
+$ # Pretty print every line:
+$ jq . /path/to/httpipe/file
+...
+
+$ # Filter out every line, that matches some criteria:
+$ jq -c 'select(.host == "test.net")' /path/to/httpipe/file
+...
+
+$ # Change a value within every line:
+$ jq -c '.host = "newhost.net"' /path/to/httpipe/file
+...
+
+$ # Print the decoded response of the first line:
+$ head -n1 /path/to/httpipe/file | jq -r .resp
+...
+```
