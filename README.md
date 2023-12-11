@@ -65,20 +65,16 @@ pretty print httpipe streams. Although not designed for httpipe, it
 works with httpipe input and can produce httpipe output with the -c
 flag.
 
-```console
-$ # Pretty print every line:
-$ jq . /path/to/httpipe/file
-...
+```bash
+# Pretty print every line:
+jq . /path/to/httpipe/file
 
-$ # Filter out every line, that matches some criteria:
-$ jq -c 'select(.host == "test.net")' /path/to/httpipe/file
-...
+# Filter out every line, that matches some criteria:
+jq -c 'select(.host == "test.net")' /path/to/httpipe/file
 
-$ # Change a value within every line:
-$ jq -c '.host = "newhost.net"' /path/to/httpipe/file
-...
+# Change a value within every line:
+jq -c '.host = "newhost.net"' /path/to/httpipe/file
 
-$ # Print the decoded response of the first line:
-$ head -n1 /path/to/httpipe/file | jq -r .resp
-...
+# Print the decoded response of the first line:
+head -n1 /path/to/httpipe/file | jq -r .resp
 ```
