@@ -51,6 +51,7 @@ the fields that are absolutely necessary when consuming data.
 ## WIP
 Here I'm collecting ideas for fields that may be added in the future:
 
+- Field `time`: The timestamp when the request was sent.
 - Field `ping` or `dur`: The delay measured between sending the request and receiving a response in ms.
 - Field `err` and/or `errno`: A field with information about errors that occurred after the request. Things like timeouts, DNS problems or TLS misconfiguration.
 
