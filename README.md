@@ -1,6 +1,6 @@
-httpipe is a format that allows communicating streams of HTTP requests
-and responses between processes. It is line based and uses JSON, so
-that it works well with UNIX tools and is easy to implement with common
+httpipe is a format that allows communicating and storing collections
+of HTTP requests and responses. It is line based and uses JSON, so that
+it works well with UNIX tools and is easy to implement with common
 libraries.
 
 # Basics
