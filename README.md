@@ -41,24 +41,42 @@ Here I'm collecting ideas for fields that may be added in the future:
 
 # Tools
 Here are some tools—some written with httpipe in mind, some not—that can
-create, transform, filter and consume httpipe streams.
+work with httpipe streams:
+- [pfuzz](https://github.com/codesoap/pfuzz): Create requests
+- [preq](https://github.com/codesoap/preq): Fetch responses for requests
+- [drip](https://github.com/codesoap/drip): Can be used for rate limiting with preq
+- [jq](https://jqlang.github.io/jq/): A powerful JSON tool for manipulations, filtering and pretty printing
 
-## jq
-`jq` is a powerful tool that can be used to filter, manipulate and
-pretty print httpipe streams. Although not designed for httpipe, it
-works with httpipe input and can produce httpipe output with the -c
-flag.
+## Examples
+Here are some examples of the mentioned tools and some more UNIX tools
+in action:
 
 ```bash
-# Pretty print every line:
-jq . /path/to/httpipe/file
+# Make a request to Google:
+pfuzz -u 'https://google.com' | preq
 
-# Filter out every line, that matches some criteria:
-jq -c 'select(.host == "test.net")' /path/to/httpipe/file
+# Just print the status line of the response:
+pfuzz -u 'https://google.com' | preq | jq -r .resp | head -n1
 
-# Change a value within every line:
-jq -c '.host = "newhost.net"' /path/to/httpipe/file
+# Try some different subdomains, but wait 500ms between requests:
+echo "www\nmail\nfoo" | drip 500ms | pfuzz -w - -u 'https://FUZZ.test.com' | preq
 
-# Print the decoded response of the first line:
-head -n1 /path/to/httpipe/file | jq -r .resp
+# Generate requests for some random 10 paths:
+sort --random-sort /usr/share/dict/words | head -n 10 | pfuzz -w - -u 'https://test.net/FUZZ'
+
+# Store results in a file for later analysis:
+pfuzz -w /usr/share/dict/words -u 'https://FUZZ.test.net' | drip | preq > results
+
+# Also show the progress (as the request count):
+pfuzz -w /usr/share/dict/words -u 'https://FUZZ.test.net' | drip | preq | pv -l > results
+
+# Show the response of the first result:
+head -n1 results | jq -r .resp | less
+
+# Filter out lines for a specific host; note that jq generates valid
+# httpipe output with the -c flag:
+jq -c 'select(.host == "mail.test.net")' results
+
+# Execute the requests from the file 'reqs', but on a different port:
+jq -c '.port = 8080' reqs | drip | preq
 ```
