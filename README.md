@@ -3,22 +3,6 @@ and responses between processes. It is line based and uses JSON, so
 that it works well with UNIX tools and is easy to implement with common
 libraries.
 
-# Uses
-The goal of httpipe is to enable the creation of tools around HTTP that
-follow the UNIX philosophy. By using this common format, multiple simple
-tools can be used together to create complex interactions with HTTP
-servers and to analyze the results.
-
-One common use case for such tools could be the penetration testing
-of web applications. A handful of simple tools could be combined in
-different ways to perform these tasks:
-- Fuzzing subdomains, paths, header parameters, etc.
-- Collecting, filtering and analyzing responses for a stream of requests
-- Crawling
-- Monitoring an endpoint over time
-- Load testing
-- Running a chain of requests that each incorporate information from previous responses
-
 # Basics
 A httpipe communication is a unidirectional stream of JSON objects,
 one per line. Each JSON object contains the information about one
