@@ -26,18 +26,20 @@ different tools will require different fields. It is recommended to
 include as many fields as possible when generating data and require only
 the fields that are absolutely necessary when consuming data.
 
-- Field `host`: The host that a request should be sent to or a response was received from.
-- Field `port`: The port that is used with `host`. Recommended defaults are 443 if `tls` is `true` and 80 if it is `false`.
-- Field `tls`: Whether TLS (HTTPS) is used or not (HTTP). Recommended default is `true`.
-- Field `req`: The full HTTP request, including HTTP method, header fields and, if applicable, payload.
-- Field `resp`: The full HTTP response, including HTTP status line, response header fields and payload (if applicable).
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| `host` | string | The host that a request should be sent to or a response was received from. |
+| `port` | int | The port that is used with `host`. Recommended defaults are 443 if `tls` is `true` and 80 if it is `false`. |
+| `tls` | bool | Whether TLS (HTTPS) is used or not (HTTP). Recommended default is `true`. |
+| `req` | string | The full HTTP request, including HTTP method, header fields and, if applicable, payload. |
+| `reqat` | string | The timestamp when the request was sent, in UTC, in the form `yyyy-mm-ddThh:mm:ssZ`. |
+| `ping` | int | The delay between sending the last byte of the request and receiving the first byte of the response in milliseconds. |
+| `resp` | string | The full HTTP response, including HTTP status line, response header fields and payload (if applicable). |
+| `err` | string | A textual description of an error that occurred during a request. |
+| `errno` | int | An error number indicating the type of error that occurred during a request. |
 
-## WIP
-Here I'm collecting ideas for fields that may be added in the future:
-
-- Field `time`: The timestamp when the request was sent.
-- Field `ping` or `dur`: The delay measured between sending the request and receiving a response in ms.
-- Field `err` and/or `errno`: A field with information about errors that occurred after the request. Things like timeouts, DNS problems or TLS misconfiguration.
+## Error numbers
+It has not yet been decided, which error numbers are to be used for which errors.
 
 # Tools
 Here are some tools—some written with httpipe in mind, some not—that can
