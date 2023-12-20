@@ -48,6 +48,7 @@ work with httpipe streams:
 - [preq](https://github.com/codesoap/preq): Fetch responses for requests
 - [drip](https://github.com/codesoap/drip): Can be used for rate limiting with preq
 - [jq](https://jqlang.github.io/jq/): A powerful JSON tool for manipulations, filtering and pretty printing
+- [hpstat](https://github.com/codesoap/hpstat): Filter responses by HTTP status codes
 
 ## Examples
 Here are some examples of the mentioned tools and some more UNIX tools
@@ -74,6 +75,9 @@ pfuzz -w /usr/share/dict/words -u 'https://FUZZ.test.net' | drip | preq | pv -l 
 
 # Show the response of the first result:
 head -n1 results | jq -r .resp | less
+
+# Show all 5xx responses:
+cat results | hpstat 500:599 | jq .
 
 # Filter out lines for a specific host; note that jq generates valid
 # httpipe output with the -c flag:
