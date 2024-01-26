@@ -49,6 +49,7 @@ work with httpipe streams:
 - [drip](https://github.com/codesoap/drip): Can be used for rate limiting with preq
 - [jq](https://jqlang.github.io/jq/): A powerful JSON tool for manipulations, filtering and pretty printing
 - [hpstat](https://github.com/codesoap/hpstat): Filter responses by HTTP status codes
+- [hp2url](https://github.com/codesoap/hp2url): Print URLs for httpipe input
 
 ## Examples
 Here are some examples of the mentioned tools and some more UNIX tools
