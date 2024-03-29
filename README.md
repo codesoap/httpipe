@@ -39,7 +39,33 @@ the fields that are absolutely necessary when consuming data.
 | `errno` | int | An error number indicating the type of error that occurred during a request. |
 
 ## Error numbers
-It has not yet been decided, which error numbers are to be used for which errors.
+The `errno` value indicates problems that lead to missing HTTP
+responses. Each error number has two digits, where the first digit
+specifies the category of the error and the second digit further
+characterizes the error.
+
+### 1x: DNS errors
+1x errors occur when a hostname could not be resolved. They will never
+occur if IPs are used instead of hostnames. The following error numbers
+are defined:
+
+- 10: Hostname could not be resolved.
+- 11: Hostname resolution timed out.
+
+### 2x: TLS errors
+2x errors occur when there are problems with TLS. They will only occur
+with HTTPS requests and never with HTTP. The following error numbers are
+defined:
+
+- 20: Server uses invalid certificate.
+- 21: Server uses untrusted certificate authority.
+
+### 3x: Connection errors
+3x errors occur when the server did not respond to a request. The
+following error numbers are defined:
+
+- 30: Server refused connection.
+- 31: Connection timed out.
 
 # Tools
 Here are some tools—some written with httpipe in mind, some not—that can
